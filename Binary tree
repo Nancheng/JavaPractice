@@ -1,0 +1,93 @@
+import java.util.LinkedList;
+
+import javax.xml.soap.Node;
+
+public class BinaryTree{
+	
+	private Node<Integer> root;
+	
+	public BinaryTree(){
+		root = new Node<Integer>();
+		
+	public BinaryTree(int[] values){
+		System.out.print("新建binarytree");
+		for（int i : values){
+			System.out.print(i);
+		}
+		System.out.println();
+		boolean isLeft = true;
+		int len = values.length;
+		if(len == 0) return;
+		LinkedList<Node<Integer>> queue = new LinkedList<NodeInteger<>>();
+		root = new Node<Integer>(value[0]);
+		queue.addLast(root);
+		Node parent = null;
+		Node current = null;
+		for(int i = 1; i<len;i++){
+			current = new Node<Integer>(values[i]);
+			queue.addLast(current);
+			if(isLeft){
+				parent = que.getFirst();
+			}else{
+				parent = queue.removeFirst();
+			}
+			if(isLeft){
+				parent.setLeftChild(current);
+				isLeft = false;
+			}else{
+				parent.setRightChild(current);
+				isLeft = true;
+			}
+		}
+	}
+	
+	//递归中序遍历
+	public void inorder(){
+		System.out.print("递归中序遍历");
+		inorderTraverseRecursion(root);
+		System.out.println();
+	}
+	
+	//层次遍历
+	public void layerorder(){
+		System.out.print("层次遍历");
+		LinkedList<Node<Integer>> queue = new LinkedList<Node<Integer>>();
+		queue.addLast(root);
+		Node<Integer> current = null;
+		
+		while(!queue.isEmpty()){
+			current = queue.removeFirst();
+			if(current.getLeftChild() != null){
+				queue.addLast(current.getLeftChild());
+			}
+			if(current.getRightChild() != null){
+				queue.addLast(current.getRightChild());	
+			}
+			System.out.print(current.getValue());
+		}
+		System.out.println();
+	}
+	
+	//二叉树深度
+	public int getDepth(){
+		return getDepthRecursion(root);
+	}
+	
+	private int getDepthRecursion(Node<Integer> node){
+		if(node == null) return 0;
+		int llen = getDepthRecursion(node.getLeftChild());
+		int rlen = getDepthRecursion(node.getRightChild());
+		int maxlen = Math.max(llen, rlen);
+		return maxlen + 1;
+	}
+	
+	//递归先序遍历
+	public void preorder(){
+		System.out.print("递归先序遍历");
+		preorderTarverseRecursion(root);
+		System.out.println();
+	}
+	
+	
+	}
+}
