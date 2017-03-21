@@ -1,0 +1,122 @@
+//StdRandom库中的静态方法的实现
+//随机返回[a,b)之间的一个double值
+public static double uniform(double a, double b)
+{return a +StdRandom.random()*(b-a);}
+
+//随机返回[0..N)之间的一个int值
+public static int uniform(int N)
+{return (int) (StdRandom()* N);}
+
+//随机返回[lo,hi) 之间的一个int值
+public static int uniform(int lo, int hi)
+{return lo + StdRandom.uniform(hi-lo);}
+
+//根据离散概率随即返回的int值（出现i的概率为a[i]）
+public static int discrete(double[] a)
+{a[]中各元素之和必须等于1
+    double r = StdRandom.random();
+    double sum = 0.0;
+    for(int i = 0; i< a.length; i++)
+    {
+    sum = sum + a[i];
+    if(sum >= r) return i;
+    }
+    return -1;
+
+}
+
+//随机将double数组中的元素排序
+public static void shuffle(double[] a)
+{
+    int N = a.length;
+    for(int i = 0; i<N; i++)
+    {
+        int r = i +StdRandom.uniform(N-i);
+        double temp = a[i];
+        a[i] = a[r];
+        a[r] = temp;
+    }
+}
+
+
+//格式化输出
+public class RandomSeq
+{
+    public static void main(String[], args)
+    {//打印N个(lo, hi)之间的随机数
+        int N = Integer.parseInt(args[0]);
+        double lo = double.parseDouble(args[1]);
+        double hi = double.parseDouble(args[2]);
+        for(int i = 0; i<N; i++)
+            {
+                double x = StdRandom.uniform(lo, hi);
+                StdOut.printf(‘%.2f\n’, x);
+            }
+
+
+    }
+}
+
+
+//标准输入
+public class Average
+{
+    public static void main(String[] args)
+    {//取 StdIn中所有数的平均值
+        double sum = 0.0;
+        int cnt = 0;
+        while(!StdIn.isEmpty())
+        {
+            sum += StdIn.readDouble();
+            cnt++;
+        }
+        double avg = sum/ int;
+        Std.printf(‘Average is %.5f\n’, avg);
+
+    }
+}
+
+//背包的典型用例
+public class Stats
+{
+    public static void main(String[] args)
+    {
+        Bag<Double> numbers = new Bag<Double>();
+        
+        while(!StdIn.isEmpty())
+            numbers.add(StdIn.readDouble());
+        int N = numbers.size();
+
+        double sum = 0.0;
+        for(double x: numbers)
+            sum += x;
+        double mean = sum/N;
+
+        sum = 0.0;
+        for(double x: numbers)
+            sum += (x-mean)*(x-mean);
+        double std = Math.sqrt(sum/(N-1));
+
+        StdOut.printf(‘Mean : %.2f\n’, mean);
+        StdOut.printf(‘Std dev: %.2f\n’, std);
+    }
+}
+
+
+
+//Queue的用例
+public static int[] readInts(String name)
+{
+    In in = new In(name);
+    Queue<Integer> q= new Queue<Integer>();
+    while(!in.isEmpty)
+        q.enqueue(in.readInt());
+
+    int N = q.size();
+    int[] a = new int[N];
+    for (int i = 0; i<N; i++)
+        a[i] = q.dequeue();
+    return a;
+
+
+}
