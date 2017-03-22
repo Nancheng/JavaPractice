@@ -1,0 +1,45 @@
+public class Test{
+
+    public test(){
+
+    }
+
+    public static void main(String[] args){
+        boolean a = new boolean[10][10];
+
+        a = RandomInitial(a);//初始化数组
+        Testprint(a);// 打印数组
+
+
+    }
+    public static void TestPrint(boolean[][] a){
+        for(int i = 0; i<a.length;i++){//打印行号
+            System.out.print(" "+ i);
+                System.out.println(" ");
+                for(int j = 0; j<10; j++){
+                    if(a[i][j]){
+                        System.out.print("*"+" ");
+                    }else{
+                        System.out.print(" "+" ");
+                    }
+                }
+                System.out.println(" ");
+
+
+            }
+    }
+
+    public static boolean[][] RandomInitial(boolean[][] a){
+        for(int i = 0; i<a.length; i++){
+            for(int j = 0; j<a.length; j++){
+                if(StdRandom.bernoulli(0.1)){
+                    a[i][j]=true;
+                }else{
+                    a[i][j]=false;
+                }
+            }
+        }
+        return a;
+    }
+
+}
