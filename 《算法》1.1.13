@@ -1,0 +1,45 @@
+public class Migrate{
+	public Migrate(){
+		
+	}
+	public static void main(String[] args){
+		int m=5;
+		int n=5;
+		int[][] a = new int [m][n];
+		int[][] b = new int [n][m];
+		
+		a = RandomInitial(a,n);//初始化二维数组
+		b = MigrateArrays(a,b);//转置二维数组
+		Migrateprint(b);//输出转置二维数组
+	}
+	
+	public static void Migrateprint(int[][] a){
+		System.out.println(" 输出转置二维数组");
+		
+		for(int i = 0; i< a.length; i++){
+			for(int j = 0; j<a[0].length; j++){
+				System.out.print(a[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+	}
+	public static int[][] MigrateArrays(int[][] a, int[][] b){
+		for(int i = 0;i<a.length;i++){
+			for(int j = 0;j<a[0].length;j++){
+				b[j][i] = a[i][j];
+			}
+		}
+		return b;
+	}
+	public int[][] RandomInitial(int[][] a, int N){
+		System.out.println("初始化二维数组");
+		for(int i = 0; i<a.length;i++){
+			for(int j = 0; j<a[0].length; j++){
+				a[i][j] = StdRandom.uniform(N);
+				System.out.print(a[i][j]+" ");
+			}
+		}
+		return a;
+	}
+}
