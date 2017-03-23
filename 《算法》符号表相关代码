@@ -1,0 +1,118 @@
+// 简单的符号表测试用例
+public static void main(String[] args){
+	ST<String, Integer> st;
+	st = new ST<String, Integer>();
+	
+	for(int i = 0; !StdIn.isEmpty(); i++){
+		String key = StdIn.readString();
+		st.put(key, i);
+	}
+	
+	for(String s: st.keys()){
+		StdOut.println(s+" "+st.get(s));
+	}
+}
+
+// 符号表统计各个单词的出现频率
+
+public class FrequencyCounter{
+	
+	public static void main(String[] args){
+		int minlen = Integer.parseInt(args[0]);//最小键长
+		ST<String, Integer> st = new ST<String, Integer>();
+		while(!StdIn.isEmpty()){
+			//构造符号表并统计频率
+			String word = Std.readString();
+			if(word.length()< minlen) continue;//忽略较短的单词
+			if(!st.contains(word)) st.put(word,1);
+			else                   st.put(word, st.get(word)+1)
+			
+		}
+		
+		//找出出现频率最高的单词
+		String max = " ";
+		st.put(max, 0);
+		for(String word : st.keys())
+			if(st.get(word)>st.get(max))
+				max = word;
+		StdOut.println(max+" "+st.get(max));
+		
+	}
+}
+
+
+//顺序查找（基于无序链表）
+public class SequentialSearchST<key, value>{
+	private Node first;  //链表首结点
+	private class Node{
+		//链表结点的定义
+		Key key;
+		Value val;
+		Node next;
+		public Node(Key key, Value val, Node next){
+			this.key  = key;
+			this.val  = val;
+			this.next = next;
+		}
+	}
+	public Value get(Key key){
+		//查找给定的键，返回相关联的值。
+		for(Node x= first; x!= null; x=x.next)
+			if(key.equals(x.key))
+				return x.val;//命中
+		return null;         //未命中
+	}
+	public void put(Key key, Value val){
+		//查找给定的键，找到则更新其值，否则在表中新建结点
+		for(Node x= first; x!=null; x=x.next)
+			if(key.equals(x.key)){
+				x.val = val;
+				return;
+			}//命中，更新
+		 first = new Node(key, val, first); //未命中，新建结点。
+	}
+}
+
+
+
+//二分查找（基于有序数组）
+public class BinarySearchST<key extends Comparable<key>, Value>{
+	private Key[] keys;
+	private Value[] vals;
+	private int N;
+	public BinarySearchST(int capacity){
+		//调整数组大小的标准代码见算法1.1
+		keys = (Key[]) new Comparable[capacity];
+		vals = (Value[]) new Object[capacity];
+	}
+	
+	public int size(){
+		return N;
+	}
+	public Value get(Key key){
+		if(isEmpty()) return null;
+		int i = rank(key);
+		if(i<N&&keys[i].compareTo(key)==0) return vals[i];
+		else                               return null;
+	}
+	public int rank(Key key)
+	//见算法3.2
+	public void put(Key key, Value val){
+		//查找键，找到则更新值，否则创建新的元素。
+		int i = rank(key);
+		if(i<N&&keys[i].compareTo(key)==0){
+			vals[i]=val;
+			return;
+		}
+		for(int j=N;j>i;j--){
+			keys[j]=key[j-1];
+			vals[j]=vals[j-1];
+		}
+		keys[i] = key;
+		vals[i] = val;
+		N++;
+	}
+	public void delete(Key key)
+	//  实现见练习3.1.16
+	
+}
